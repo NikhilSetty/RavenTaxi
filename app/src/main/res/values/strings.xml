@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">OlaOff</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="ride_now">Ride Now</string>
+    <string name="choose_time">Select Time</string>
+</resources>

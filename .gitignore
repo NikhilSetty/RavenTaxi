@@ -2,6 +2,11 @@
 *.apk
 *.ap_
 
+OlaOff.iml
+
+.idea
+.Olaoff.iml
+
 # Files for the Dalvik VM
 *.dex
 
