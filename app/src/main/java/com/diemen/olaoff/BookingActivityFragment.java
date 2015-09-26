@@ -43,7 +43,10 @@ public class BookingActivityFragment extends Fragment {
         mMiniRelativeLayout = (RelativeLayout) view.findViewById(R.id.mini_rr);
         mRideNowButton = (Button) view.findViewById(R.id.ride_now_btn);
         mSelectTimeButton = (Button) view.findViewById(R.id.select_time_btn);
-
+        Date date = new Date();
+        Calendar now = Calendar.getInstance();
+        now.setTime(date);
+        mSelectTimeButton.setText(now.get(Calendar.HOUR_OF_DAY)+":"+now.get(Calendar.MINUTE));
         mSelectTimeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -55,6 +58,7 @@ public class BookingActivityFragment extends Fragment {
                             @Override
                             public void onTimeSet(RadialPickerLayout radialPickerLayout, int hour, int minutes) {
                                 mMinutes = minutes;
+                                mSelectTimeButton.setText(hour+":"+minutes);
                             }
                         }
                         , now.get(Calendar.HOUR_OF_DAY),
