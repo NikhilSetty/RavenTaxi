@@ -3,13 +3,26 @@ package com.diemen.olaoff.Keyboard;
 import android.inputmethodservice.InputMethodService;
 import android.inputmethodservice.Keyboard;
 import android.inputmethodservice.KeyboardView;
+import android.location.Location;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputConnection;
+import android.widget.Button;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import com.diemen.olaoff.R;
+import com.diemen.olaoff.utilities.CabItem;
+import com.diemen.olaoff.utilities.CabItemAdapter;
+import com.diemen.olaoff.utilities.RecyclerOnItemClickListener;
+import com.diemen.olaoff.utilities.SmsSender;
+
+import java.util.ArrayList;
 
 /**
  * Created by nravishankar on 9/27/2015.
@@ -23,9 +36,10 @@ public class OlaKey extends InputMethodService
 
     private boolean caps = false;
 
-    Keyboard qwertyKeyboard;
-    Keyboard symbolsKeyboard;
-    Keyboard symbolsShiftKeyboard;
+    private Keyboard qwertyKeyboard;
+    private Keyboard symbolsKeyboard;
+    private Keyboard symbolsShiftKeyboard;
+
 
     @Override
     public View onCreateInputView() {
@@ -55,6 +69,9 @@ public class OlaKey extends InputMethodService
     public void onKey(int primaryCode, int[] keyCodes) {
         InputConnection ic = getCurrentInputConnection();
         switch(primaryCode){
+            case -456:
+                ChangeLayout();
+                break;
             case Keyboard.KEYCODE_DELETE :
                 ic.deleteSurroundingText(1, 0);
                 break;
@@ -120,7 +137,7 @@ public class OlaKey extends InputMethodService
 
     @Override
     public void swipeLeft() {
-
+        Toast.makeText(getApplicationContext(), "h", Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -128,8 +145,77 @@ public class OlaKey extends InputMethodService
         ChangeLayout();
     }
 
+    private Button mRideNowButton;
+    private boolean isConnected;
+
+    private RecyclerView mRecyclerView;
+    private RecyclerView.LayoutManager mLayoutManager;
+    private ArrayList<CabItem> mCabList;
+    private CabItemAdapter mAdapter;
+
+    private static String selectedCab = "mini";
+    private RecyclerOnItemClickListener.OnItemClickCallback mOnItemClickCallback = new RecyclerOnItemClickListener.OnItemClickCallback() {
+        @Override
+        public void onItemClicked(View view, int position) {
+            switch (view.getId()) {
+                default:
+                    mAdapter.disableRow(position);
+                    Toast.makeText(getApplicationContext(), mCabList.get(position).getCabItem()+" selected", Toast.LENGTH_SHORT).show();
+                    selectedCab = mCabList.get(position).getCabItem();
+                    break;
+            }
+        }
+    };
     private void ChangeLayout() {
+
+
         RelativeLayout v = (RelativeLayout) getLayoutInflater().inflate(R.layout.cab_keyboard_layout, null);
+        mRideNowButton = (Button) v.findViewById(R.id.ride_now_btn);
+        mRecyclerView = (RecyclerView) v.findViewById(R.id.list);
+        mLayoutManager = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.HORIZONTAL, false);
+        mRecyclerView.setLayoutManager(mLayoutManager);
+        mCabList = CabItem.getCabList();
+
+        mAdapter = new CabItemAdapter(mCabList, mOnItemClickCallback, getApplicationContext());
+        mRecyclerView.setAdapter(mAdapter);
+
+        v.setOnTouchListener(new View.OnTouchListener() {
+            int downX, upX;
+
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+
+                if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                    downX = (int) event.getX();
+                    Log.i("event.getX()", " downX " + downX);
+                    return true;
+                } else if (event.getAction() == MotionEvent.ACTION_UP) {
+                    upX = (int) event.getX();
+                    Log.i("event.getX()", " upX " + downX);
+                    if (upX - downX > 100) {
+                        showKeyPad();
+                    } else if (downX - upX > -100) {
+                        showKeyPad();
+                    }
+                    return true;
+
+                }
+                return false;
+            }
+        });
+
+        mRideNowButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(selectedCab.isEmpty() || selectedCab == null){
+                    Toast.makeText(getApplicationContext(), "Please Select a cab type!", Toast.LENGTH_SHORT).show();
+                }
+                else{
+                    String message = "OLA," + "12.9501069" + "," + "77.6416856" + "," + "sdfas345" + "," + selectedCab + "," + "kundalahalli" + "," + "30";
+                    SmsSender.sendSms("7022256703", message, new Location(""), "mini");
+                }
+            }
+        });
         setInputView(v);
     }
 
@@ -141,5 +227,12 @@ public class OlaKey extends InputMethodService
     @Override
     public void swipeUp() {
 
+    }
+
+    public void showKeyPad(){
+        keyboard = qwertyKeyboard;
+        kv.setKeyboard(keyboard);
+        kv.setOnKeyboardActionListener(this);
+        setInputView(kv);
     }
 }

@@ -12,7 +12,7 @@ public class SmsSender {
 
     public static void sendSms(String phoneNum, String msg, Location myLocation,/* Location destination,*/ String cabType) {
 
-        StringBuilder builder = new StringBuilder();
+        /*StringBuilder builder = new StringBuilder();
         builder.append("OLA" + SEPARATOR);
         builder.append(myLocation.getLatitude() + SEPARATOR);
         builder.append(myLocation.getLongitude() + SEPARATOR);
@@ -23,7 +23,7 @@ public class SmsSender {
         // destination
         builder.append("Kundallahalli" + SEPARATOR);
         // timer
-        builder.append("10");
+        builder.append("10");*/
 
         SmsManager sms = SmsManager.getDefault();
         sms.sendTextMessage(phoneNum, null, msg, null, null);

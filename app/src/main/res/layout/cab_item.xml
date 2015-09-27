@@ -7,6 +7,7 @@
     android:layout_marginLeft="@dimen/cab_item_item_side_margin"
     android:layout_marginRight="@dimen/cab_item_item_side_margin"
     android:layout_gravity="center"
+    android:id="@+id/ll"
     android:orientation="vertical">
 
     <TextView

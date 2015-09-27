@@ -100,7 +100,7 @@ public class BookingActivity extends AppCompatActivity implements
         mLayoutManager = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.HORIZONTAL, false);
         mRecyclerView.setLayoutManager(mLayoutManager);
         mCabList = CabItem.getCabList();
-        mAdapter = new CabItemAdapter(mCabList, mOnItemClickCallback);
+        mAdapter = new CabItemAdapter(mCabList, mOnItemClickCallback, getApplicationContext());
         mRecyclerView.setAdapter(mAdapter);
     }
 
@@ -274,6 +274,7 @@ public class BookingActivity extends AppCompatActivity implements
         public void onItemClicked(View view, int position) {
             switch (view.getId()) {
                 default:
+                    mAdapter.disableRow(position);
                     Toast.makeText(getApplicationContext(), mCabList.get(position).getCabItem()+" selected", Toast.LENGTH_SHORT).show();
                     selectedCab = mCabList.get(position).getCabItem();
                     break;

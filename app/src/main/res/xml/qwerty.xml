@@ -6,8 +6,8 @@
     >
 
     <Row>
-        <Key android:codes="113" android:keyLabel="q" android:keyEdgeFlags="left"/>
-        <Key android:codes="-456" android:keyLabel="+"/>
+        <Key android:codes="-456" android:keyIcon="@drawable/ic_car" android:keyEdgeFlags="left"/>
+        <Key android:codes="113" android:keyLabel="q"/>
         <Key android:codes="119" android:keyLabel="w"/>
         <Key android:codes="101" android:keyLabel="e"/>
         <Key android:codes="114" android:keyLabel="r"/>
