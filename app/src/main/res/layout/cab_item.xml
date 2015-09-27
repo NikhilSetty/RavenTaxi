@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:paddingLeft="@dimen/cab_item_item_side_margin"
+    android:paddingRight="@dimen/cab_item_item_side_margin"
+    android:layout_marginLeft="@dimen/cab_item_item_side_margin"
+    android:layout_marginRight="@dimen/cab_item_item_side_margin"
+    android:layout_gravity="center"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="14 min"
+        android:singleLine="true"
+        android:maxLines="1"
+        android:ellipsize="end"
+        android:textColor="@color/black"
+        android:textSize="@dimen/cab_item_txt_size" />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/cab_icon"
+        style="@style/circleImageViewNormal"
+        android:layout_gravity="center_horizontal"
+        android:layout_width="@dimen/cab_item_icon_size"
+        android:layout_height="@dimen/cab_item_icon_size"
+        android:src="@drawable/marker" />
+
+    <TextView
+        android:id="@+id/cab_item"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="mini"
+        android:singleLine="true"
+        android:maxLines="1"
+        android:ellipsize="end"
+        android:textColor="@color/black"
+        android:textSize="@dimen/cab_item_txt_size" />
+
+</LinearLayout>

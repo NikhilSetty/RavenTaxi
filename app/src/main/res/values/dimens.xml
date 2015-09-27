@@ -6,4 +6,10 @@
     <dimen name="circle_imageView_dimens_normal">60dp</dimen>
     <dimen name="btn_height">50dp</dimen>
     <dimen name="panel_height">60dp</dimen>
+
+    <dimen name="cab_item_txt_size">15sp</dimen>
+    <dimen name="cab_item_icon_size">50dp</dimen>
+    <dimen name="cab_item_item_margin">2dp</dimen>
+    <dimen name="cab_item_item_side_margin">10dp</dimen>
+    <dimen name="cab_item_height">100dp</dimen>
 </resources>

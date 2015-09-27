@@ -1,13 +1,17 @@
 package com.diemen.olaoff;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.location.Location;
+import android.os.Parcelable;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -18,7 +22,11 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.diemen.olaoff.utilities.CabItem;
+import com.diemen.olaoff.utilities.CabItemAdapter;
 import com.diemen.olaoff.utilities.LocationUtility;
+import com.diemen.olaoff.utilities.RecyclerOnItemClickListener;
+import com.diemen.olaoff.utilities.SmsSender;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationServices;
@@ -26,6 +34,7 @@ import com.google.android.gms.location.places.Places;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
@@ -33,6 +42,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.wdullaer.materialdatetimepicker.time.RadialPickerLayout;
 import com.wdullaer.materialdatetimepicker.time.TimePickerDialog;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -50,9 +60,16 @@ public class BookingActivity extends AppCompatActivity implements
     private boolean isAnimated = false;
     private static final int MIN_DISTANCE = 500;
     private static final float DEFAULT_ZOOM_LEVEL = 15.0f;
+    BitmapDescriptor mMarkerIcon;
 
     private Button mRideNowButton;
     private boolean isConnected;
+
+    private RecyclerView mRecyclerView;
+    private RecyclerView.LayoutManager mLayoutManager;
+    private ArrayList<CabItem> mCabList;
+    private CabItemAdapter mAdapter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,7 +77,8 @@ public class BookingActivity extends AppCompatActivity implements
         setContentView(R.layout.activity_booking);
 
         buildGoogleApiClient();
-
+        mMarkerIcon = BitmapDescriptorFactory.fromResource(R.drawable.marker);
+//        mMarkerIcon = BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN);
         isConnected = getIntent().getBooleanExtra(EXTRA_INTERNET, false);
         mRideNowButton = (Button) findViewById(R.id.ride_now_btn);
 
@@ -76,6 +94,13 @@ public class BookingActivity extends AppCompatActivity implements
         if(!isConnected){
             showOfflineDialog();
         }
+
+        mRecyclerView = (RecyclerView) findViewById(R.id.list);
+        mLayoutManager = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.HORIZONTAL, false);
+        mRecyclerView.setLayoutManager(mLayoutManager);
+        mCabList = CabItem.getCabList();
+        mAdapter = new CabItemAdapter(mCabList, mOnItemClickCallback);
+        mRecyclerView.setAdapter(mAdapter);
     }
 
     private void showOfflineDialog(){
@@ -106,7 +131,7 @@ public class BookingActivity extends AppCompatActivity implements
     }
 
     private void offlineBook(){
-
+        SmsSender.sendSms("", "", myLocation,"mini");
     }
 
     //-------------------------------------------------------------------------
@@ -141,8 +166,7 @@ public class BookingActivity extends AppCompatActivity implements
                     }
                     MarkerOptions marker = new MarkerOptions()
                             .position(loc)
-                            .icon(BitmapDescriptorFactory
-                                    .defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
+                            .icon(mMarkerIcon);
                     myMarker = googleMap.addMarker(marker);
                     if (!isAnimated) {
                         googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(loc, DEFAULT_ZOOM_LEVEL));
@@ -162,8 +186,7 @@ public class BookingActivity extends AppCompatActivity implements
             }
             MarkerOptions marker = new MarkerOptions()
                     .position(loc)
-                    .icon(BitmapDescriptorFactory
-                            .defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
+                    .icon(mMarkerIcon);
             myMarker = googleMap.addMarker(marker);
             myMarker.showInfoWindow();
 
@@ -210,8 +233,9 @@ public class BookingActivity extends AppCompatActivity implements
         myLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
         if(myLocation != null){
             showPlayLocation(myLocation);
+            Log.i(TAG, "onConnected Location:" + myLocation.getLatitude() + " : " + myLocation.getLongitude());
         }
-        Log.i(TAG, "onConnected Location:"+myLocation.getLatitude()+" : "+myLocation.getLongitude());
+
     }
 
     @Override
@@ -223,4 +247,15 @@ public class BookingActivity extends AppCompatActivity implements
     public void onConnectionFailed(ConnectionResult connectionResult) {
 
     }
+
+    private RecyclerOnItemClickListener.OnItemClickCallback mOnItemClickCallback = new RecyclerOnItemClickListener.OnItemClickCallback() {
+        @Override
+        public void onItemClicked(View view, int position) {
+            switch (view.getId()) {
+                default:
+                    Toast.makeText(getApplicationContext(), mCabList.get(position).getCabItem()+" selected", Toast.LENGTH_SHORT).show();
+                    break;
+            }
+        }
+    };
 }

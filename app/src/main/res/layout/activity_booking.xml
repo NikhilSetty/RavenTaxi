@@ -4,11 +4,27 @@
     android:layout_height="match_parent"
     android:background="@color/light_grey">
 
+    <android.support.v7.widget.AppCompatAutoCompleteTextView
+        android:id="@+id/location"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentTop="true"
+        android:layout_margin="10dp"
+        android:background="@color/white"
+        android:focusable="false"
+        android:drawablePadding="20dp"
+        android:drawableRight="@drawable/magnify"
+        android:elevation="5dp"
+        android:hint="Destination"
+        android:imeOptions="actionNext"
+        android:inputType="text"
+        android:padding="10dp" />
+
     <include
         layout="@layout/map_layout"
         android:layout_width="match_parent"
-        android:layout_marginBottom="@dimen/btn_height"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:layout_marginBottom="@dimen/btn_height" />
 
     <Button
         android:id="@+id/ride_now_btn"
@@ -26,12 +42,17 @@
         android:layout_alignParentBottom="true"
         android:background="@color/colorPrimary" />
 
-    <LinearLayout
+    <include
+        layout="@layout/cab_layout"
         android:layout_width="match_parent"
-        android:layout_above="@+id/ride_now_btn"
-        android:layout_height="@dimen/panel_height">
-
-    </LinearLayout>
+        android:layout_height="@dimen/cab_item_height"
+        android:gravity="bottom"
+        android:layout_above="@+id/ride_now_btn" />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_above="@+id/list"
+        android:background="@color/colorPrimary" />
 
 
 </RelativeLayout>
