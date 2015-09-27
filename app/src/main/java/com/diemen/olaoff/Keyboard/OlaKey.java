@@ -13,6 +13,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputConnection;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
@@ -169,7 +170,7 @@ public class OlaKey extends InputMethodService
     private void ChangeLayout() {
 
 
-        RelativeLayout v = (RelativeLayout) getLayoutInflater().inflate(R.layout.cab_keyboard_layout, null);
+        LinearLayout v = (LinearLayout) getLayoutInflater().inflate(R.layout.cab_keyboard_layout, null);
         mRideNowButton = (Button) v.findViewById(R.id.ride_now_btn);
         mRecyclerView = (RecyclerView) v.findViewById(R.id.list);
         mLayoutManager = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.HORIZONTAL, false);
@@ -207,10 +208,9 @@ public class OlaKey extends InputMethodService
         mRideNowButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(selectedCab.isEmpty() || selectedCab == null){
+                if (selectedCab.isEmpty() || selectedCab == null) {
                     Toast.makeText(getApplicationContext(), "Please Select a cab type!", Toast.LENGTH_SHORT).show();
-                }
-                else{
+                } else {
                     String message = "OLA," + "12.9501069" + "," + "77.6416856" + "," + "sdfas345" + "," + selectedCab + "," + "kundalahalli" + "," + "30";
                     SmsSender.sendSms("7022256703", message, new Location(""), "mini");
                 }

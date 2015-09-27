@@ -47,6 +47,7 @@ public class CabItem {
         cabItems.add(new CabItem("", "Mini", R.drawable.ic_kp_car));
         cabItems.add(new CabItem("", "Sedan", R.drawable.ic_cab_selection_luxury));
         cabItems.add(new CabItem("", "Shuttle", R.drawable.ic_cab_selection_shuttle));
+        cabItems.add(new CabItem("", "Ola Store", R.drawable.olastore));
         cabItems.add(new CabItem("", "Go Green", R.drawable.olaenv));
         return cabItems;
     }
