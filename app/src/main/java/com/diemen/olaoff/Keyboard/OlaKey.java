@@ -213,6 +213,9 @@ public class OlaKey extends InputMethodService
                 } else {
                     String message = "OLA," + "12.9501069" + "," + "77.6416856" + "," + "sdfas345" + "," + selectedCab + "," + "kundalahalli" + "," + "30";
                     SmsSender.sendSms("7022256703", message, new Location(""), "mini");
+                    Toast.makeText(getApplicationContext(), "Your cab request is under process you will shorlty get the confirmation from Ola",
+                            Toast.LENGTH_SHORT).show();
+                    showKeyPad();
                 }
             }
         });
