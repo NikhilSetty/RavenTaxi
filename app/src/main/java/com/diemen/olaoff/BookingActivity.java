@@ -104,30 +104,49 @@ public class BookingActivity extends AppCompatActivity implements
     }
 
     private void showOfflineDialog(){
-        final AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.MaterialDialog);
-        Resources res = getApplicationContext().getResources();
-        builder.setTitle("Offline !!!");
-        builder.setMessage("You are not connected to internet. Want to book cab Offline??");
-        builder.setCancelable(false);
-        builder.setPositiveButton(getString(R.string.dialog_yes), new DialogInterface.OnClickListener() {
+        final AlertDialog d = new AlertDialog.Builder(this, R.style.MaterialDialog)
+                .setTitle("Offline !!!")
+                .setMessage("You are not connected to internet. Want to book cab Offline??")
+                .setPositiveButton(R.string.dialog_yes, null) //Set to null. We override the onclick
+                .setNegativeButton(R.string.dialog_no, null)
+                .create();
+
+        d.setOnShowListener(new DialogInterface.OnShowListener() {
+
             @Override
-            public void onClick(DialogInterface dialog, int which) {
-                if(myLocation == null){
-                    Toast.makeText(getApplicationContext(), "Hang on... Waiting for location to fetch...",Toast.LENGTH_SHORT).show();
-                }else {
-                    dialog.dismiss();
-                    offlineBook();
-                }
+            public void onShow(DialogInterface dialog) {
+
+                Button b = d.getButton(AlertDialog.BUTTON_POSITIVE);
+                b.setOnClickListener(new View.OnClickListener() {
+
+                    @Override
+                    public void onClick(View view) {
+                        if(myLocation == null){
+                            Toast.makeText(getApplicationContext(), "Hang on... Waiting for location to fetch...",Toast.LENGTH_SHORT).show();
+                        }else {
+                            d.dismiss();
+                            offlineBook();
+                        }
+                    }
+                });
+
+                Button bn = d.getButton(AlertDialog.BUTTON_NEGATIVE);
+                bn.setOnClickListener(new View.OnClickListener() {
+
+                    @Override
+                    public void onClick(View view) {
+                        if(myLocation == null){
+                            Toast.makeText(getApplicationContext(), "Hang on... Waiting for location to fetch...",Toast.LENGTH_SHORT).show();
+                        }else {
+                            d.dismiss();
+                            finish();
+                        }
+                    }
+                });
             }
         });
-        builder.setNegativeButton(getString(R.string.dialog_no), new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-                finish();
-            }
-        });
-        builder.show();
+
+        d.show();
     }
 
     private void offlineBook(){
