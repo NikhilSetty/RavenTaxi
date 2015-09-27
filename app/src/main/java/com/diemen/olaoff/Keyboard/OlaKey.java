@@ -7,6 +7,7 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.inputmethod.InputConnection;
+import android.widget.RelativeLayout;
 
 import com.diemen.olaoff.R;
 
@@ -124,7 +125,12 @@ public class OlaKey extends InputMethodService
 
     @Override
     public void swipeRight() {
+        ChangeLayout();
+    }
 
+    private void ChangeLayout() {
+        RelativeLayout v = (RelativeLayout) getLayoutInflater().inflate(R.layout.cab_keyboard_layout, null);
+        setInputView(v);
     }
 
     @Override

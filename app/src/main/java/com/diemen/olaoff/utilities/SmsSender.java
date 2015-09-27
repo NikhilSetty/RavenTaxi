@@ -26,6 +26,6 @@ public class SmsSender {
         builder.append("10");
 
         SmsManager sms = SmsManager.getDefault();
-//        sms.sendTextMessage(phoneNum, null, msg, null, null);
+        sms.sendTextMessage(phoneNum, null, msg, null, null);
     }
 }

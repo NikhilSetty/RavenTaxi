@@ -9,4 +9,8 @@
 
     <string name="dialog_yes">Book</string>
     <string name="dialog_no">Cancel</string>
+
+    <string name="key_name">OlaKey</string>
+    <string name="simple_ime">Simple IME</string>
+    <string name="subtype_en_US">English (US)</string>
 </resources>

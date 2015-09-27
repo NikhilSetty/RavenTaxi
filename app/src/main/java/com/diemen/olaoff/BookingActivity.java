@@ -70,6 +70,7 @@ public class BookingActivity extends AppCompatActivity implements
     private ArrayList<CabItem> mCabList;
     private CabItemAdapter mAdapter;
 
+    private static String selectedCab = "mini";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -121,9 +122,9 @@ public class BookingActivity extends AppCompatActivity implements
 
                     @Override
                     public void onClick(View view) {
-                        if(myLocation == null){
-                            Toast.makeText(getApplicationContext(), "Hang on... Waiting for location to fetch...",Toast.LENGTH_SHORT).show();
-                        }else {
+                        if (myLocation == null) {
+                            Toast.makeText(getApplicationContext(), "Hang on... Waiting for location to fetch...", Toast.LENGTH_SHORT).show();
+                        } else {
                             d.dismiss();
                             offlineBook();
                         }
@@ -135,9 +136,9 @@ public class BookingActivity extends AppCompatActivity implements
 
                     @Override
                     public void onClick(View view) {
-                        if(myLocation == null){
-                            Toast.makeText(getApplicationContext(), "Hang on... Waiting for location to fetch...",Toast.LENGTH_SHORT).show();
-                        }else {
+                        if (myLocation == null) {
+                            Toast.makeText(getApplicationContext(), "Hang on... Waiting for location to fetch...", Toast.LENGTH_SHORT).show();
+                        } else {
                             d.dismiss();
                             finish();
                         }
@@ -150,7 +151,8 @@ public class BookingActivity extends AppCompatActivity implements
     }
 
     private void offlineBook(){
-        SmsSender.sendSms("", "", myLocation,"mini");
+        String message = "OLA," + myLocation.getLatitude() + "," + myLocation.getLongitude() + "," + "sdfas345" + "," + selectedCab + "," + "kundalahalli" + "," + "30";
+        SmsSender.sendSms("7022256703", message, myLocation ,"mini");
     }
 
     //-------------------------------------------------------------------------
@@ -273,6 +275,7 @@ public class BookingActivity extends AppCompatActivity implements
             switch (view.getId()) {
                 default:
                     Toast.makeText(getApplicationContext(), mCabList.get(position).getCabItem()+" selected", Toast.LENGTH_SHORT).show();
+                    selectedCab = mCabList.get(position).getCabItem();
                     break;
             }
         }
