@@ -1,0 +1,142 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/light_grey"
+    tools:context=".BookingActivityFragment">
+
+
+    <RelativeLayout
+        android:id="@+id/category_panel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="19dp"
+        android:paddingBottom="4dp"
+        android:paddingTop="4dp">
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true">
+
+            <RelativeLayout
+                android:id="@+id/mini_rr"
+                style="@style/category_panel_individual"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/black"
+                android:paddingBottom="4dp"
+                android:tag="1">
+
+                <ImageView
+                    android:id="@+id/mini"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/mini_selected" />
+
+                <TextView
+                    android:id="@+id/mini_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/mini"
+                    android:layout_centerHorizontal="true"
+                    android:text="Mini"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textColor="@color/ola_green" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/sedan_rr"
+                style="@style/category_panel_individual"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/mini_rr"
+                android:background="@color/ola_green"
+                android:paddingBottom="4dp"
+                android:tag="2">
+
+                <ImageView
+                    android:id="@+id/sedan"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:src="@drawable/sedan_unselected" />
+
+                <TextView
+                    android:id="@+id/textView2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/sedan"
+                    android:layout_centerHorizontal="true"
+                    android:text="Sedan"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textColor="@color/white" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/prime_rr"
+                style="@style/category_panel_individual"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/sedan_rr"
+                android:background="@color/ola_green"
+                android:paddingBottom="4dp"
+                android:tag="3">
+
+                <ImageView
+                    android:id="@+id/prime"
+                    android:layout_width="wrap_content"
+
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/prime_unselected" />
+
+                <TextView
+                    android:id="@+id/textView3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/prime"
+                    android:layout_centerHorizontal="true"
+                    android:text="Prime"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textColor="@color/white" />
+            </RelativeLayout>
+        </RelativeLayout>
+    </RelativeLayout>
+
+    <View
+        android:id="@+id/relativeLayout"
+        style="@style/divider_line"
+        android:layout_width="match_parent"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/category_panel" />
+
+    <Button
+        android:id="@+id/select_time_btn"
+        style="@style/ola_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/relativeLayout"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
+        android:paddingLeft="@dimen/activity_vertical_margin"
+        android:paddingRight="@dimen/activity_vertical_margin"
+        android:text="@string/choose_time" />
+
+    <Button
+        android:id="@+id/ride_now_btn"
+        style="@style/ola_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="1dp"
+        android:text="@string/ride_now" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_alignParentBottom="true"
+        android:background="@color/colorPrimary" />
+
+
+</RelativeLayout>
