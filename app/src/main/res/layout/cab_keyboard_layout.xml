@@ -5,7 +5,7 @@
     android:layout_gravity="bottom|center_horizontal"
     android:layout_alignParentBottom="true"
     android:layout_centerHorizontal="true"
-    android:background="@color/colorPrimaryTrans"
+    android:background="@color/black"
     android:orientation="vertical">
 
 
@@ -19,18 +19,57 @@
         android:id="@+id/textView"
         android:layout_alignBottom="@+id/view"
         android:layout_marginBottom="20dp"
-        android:textColor="@color/black"
+        android:textColor="@color/colorPrimary"
         android:layout_centerHorizontal="true"
         android:textStyle="italic|bold"/>
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/colorPrimaryDark" />
+    />
 
-    <ImageView
-        android:layout_width="100dp"
-        android:layout_height="50dp"
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_marginBottom="20dp"
-        android:layout_centerInParent="true"
-        android:background="@drawable/ola_logo_horizontal"/>
+        android:orientation="horizontal">
+        <ImageView
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:layout_gravity="left"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/driving"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_horizontal"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="Raven"
+            android:gravity="left"
+            android:paddingTop="10dp"
+            android:paddingLeft="10dp"
+            android:textSize="36dp"
+            android:textColor="@color/mdtp_white"
+            android:layout_centerHorizontal="true"
+            android:fontFamily="sans-serif-light" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_horizontal"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="TAXI"
+            android:gravity="left"
+            android:paddingTop="10dp"
+            android:paddingLeft="10dp"
+            android:textSize="20dp"
+            android:textColor="@color/colorPrimary"
+            android:layout_centerHorizontal="true"
+            android:textStyle="italic"
+            android:fontFamily="sans-serif-medium" />
+    </LinearLayout>
+
 
     <include
         layout="@layout/cab_layout"
@@ -54,6 +93,7 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="1dp"
+        android:textStyle="italic"
         android:text="@string/ride_now" />
 
     <View
